@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeAlpha Image Gallery</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background-attachment: fixed;
+            color: #f8f9fa;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #457fca 0%, #2d8ac9 50%, #3a7bd5 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            animation: textFadeIn 2s ease-out;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        @keyframes textFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .subtitle {
+            color: rgba(255,255,255,0.85);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .gallery-container {
+            position: relative;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+            aspect-ratio: 4/3;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px) rotate(-1deg);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 2px solid rgba(52, 152, 219, 0.5);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform var(--transition-speed);
+            background: rgba(255,255,255,0.05);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            color: white;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform var(--transition-speed);
+        }
+
+        .gallery-item:hover .caption {
+            transform: translateY(0);
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color var(--transition-speed);
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .btn:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        /* Lightbox styles */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-speed);
+            z-index: 1000;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+        }
+
+        .lightbox-caption {
+            color: white;
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            padding: 0 1rem;
+        }
+
+        .lightbox-nav button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background-color var(--transition-speed);
+        }
+
+        .lightbox-nav button:hover {
+            background-color: var(--primary-color);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .lightbox-close:hover {
+            background-color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CodeAlpha Image Gallery</h1>
+            <p class="subtitle">A professional gallery with lightbox and smooth transitions</p>
+        </header>
+
+        <div class="gallery-container">
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4645c379-1910-4742-9a32-6859f74e3d88.png" alt="Sunrise over mountain peaks with golden sunlight" onerror="this.onerror=null; this.src='https://via.placeholder.com/250?text=Image+Not+Available';" />
+                    <div class="caption">Mountain Sunrise</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5255ea2f-256e-4100-aae9-c1805744e137.png" alt="Ocean waves crashing on tropical beach with palm trees" onerror="this.onerror=null; this.src='https://via.placeholder.com/250?text=Image+Not+Available';" />
+                    <div class="caption">Tropical Beach</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/924c2655-c070-4d9d-bc8b-069258630eab.png" alt="Autumn forest with colorful leaves and narrow path" onerror="this.onerror=null; this.src='https://via.placeholder.com/250?text=Image+Not+Available';" />
+                    <div class="caption">Autumn Forest</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fa0056e9-3654-4bb6-9210-afdce9b72547.png" alt="Modern city skyline at night with illuminated buildings" onerror="this.onerror=null; this.src='https://via.placeholder.com/250?text=Image+Not+Available';" />
+                    <div class="caption">City Nightscape</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/676013d4-f22f-48de-a91c-a289f94ef19a.png" alt="Desert landscape with sand dunes and clear blue sky" onerror="this.onerror=null; this.src='https://via.placeholder.com/250?text=Image+Not+Available';" />
+                    <div class="caption">Desert Sands</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5fa1ef68-ef69-454a-bf4f-74bc28e48ae8.png" alt="Waterfall in lush jungle with mist and greenery" onerror="this.onerror=null; this.src='https://via.placeholder.com/250?text=Image+Not+Available';" />
+                    <div class="caption">Jungle Waterfall</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/eec267c8-e620-4700-bbbc-26fb167fc7de.png" alt="Northern lights over snowy landscape with log cabin" onerror="this.onerror=null; this.src='https://via.placeholder.com/250?text=Image+Not+Available';" />
+                    <div class="caption">Aurora Borealis</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6c571b6e-d8e4-4489-b4ce-461907816d3d.png" alt="Ancient temple ruins with stone columns and sunset" onerror="this.onerror=null; this.src='https://via.placeholder.com/250?text=Image+Not+Available';" />
+                    <div class="caption">Ancient Ruins</div>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <button class="btn" id="prevBtn">Previous</button>
+                <button class="btn" id="nextBtn">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose">&times;</button>
+            <img id="lightboxImage" src="" alt="">
+            <div class="lightbox-caption" id="lightboxCaption"></div>
+            <div class="lightbox-nav">
+                <button id="lightboxPrev">&lt;</button>
+                <button id="lightboxNext">&gt;</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            const lightboxCaption = document.getElementById('lightboxCaption');
+            const lightboxClose = document.getElementById('lightboxClose');
+            const lightboxPrev = document.getElementById('lightboxPrev');
+            const lightboxNext = document.getElementById('lightboxNext');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            let currentIndex = 0;
+
+            // Show all gallery items
+            galleryItems.forEach(item => {
+                item.style.display = 'block';
+            });
+
+            // Open lightbox with clicked image
+            function openLightbox(index) {
+                currentIndex = index;
+                const imgSrc = galleryItems[index].querySelector('img').src;
+                const caption = galleryItems[index].querySelector('.caption').textContent;
+
+                lightboxImage.src = imgSrc;
+                lightboxImage.alt = galleryItems[index].querySelector('img').alt;
+                lightboxCaption.textContent = caption;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            // Close lightbox
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+
+            // Navigate between images in lightbox
+            function navigateLightbox(direction) {
+                currentIndex += direction;
+
+                // Wrap around if at beginning or end
+                if (currentIndex >= galleryItems.length) {
+                    currentIndex = 0;
+                } else if (currentIndex < 0) {
+                    currentIndex = galleryItems.length - 1;
+                }
+
+                openLightbox(currentIndex);
+            }
+
+            // Initialize gallery
+            function initGallery() {
+                // Add click event to each gallery item
+                galleryItems.forEach((item, index) => {
+                    item.addEventListener('click', () => {
+                        openLightbox(index);
+                    });
+                });
+
+                // Lightbox navigation
+                lightboxClose.addEventListener('click', closeLightbox);
+                lightboxPrev.addEventListener('click', () => navigateLightbox(-1));
+                lightboxNext.addEventListener('click', () => navigateLightbox(1));
+
+                // Keyboard navigation
+                document.addEventListener('keydown', function(e) {
+                    if (lightbox.classList.contains('active')) {
+                        if (e.key === 'Escape') {
+                            closeLightbox();
+                        } else if (e.key === 'ArrowLeft') {
+                            navigateLightbox(-1);
+                        } else if (e.key === 'ArrowRight') {
+                            navigateLightbox(1);
+                        }
+                    }
+                });
+            }
+
+            // Start the gallery
+            initGallery();
+        });
+    </script>
+</body>
+</html>

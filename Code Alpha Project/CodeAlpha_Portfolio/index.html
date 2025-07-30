@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            color: #333;
+        }
+        .menu-list-items a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .menu-list-items a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        .navbar {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem;
+        }
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+    <script>
+        // Mobile menu toggle
+        document.getElementById('hamburger').addEventListener('click', function() {
+            document.querySelector('.menu-list').classList.toggle('active');
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <h1 class="logo-heading">My Portfolio</h1>
+        </div>
+        <div class="menu">
+            <div class="hamburger" id="hamburger">&#9776;</div>
+            <ul class="menu-list">
+                <li class="menu-list-items"><a href="#about">About</a></li>
+                <li class="menu-list-items"><a href="#projects">Projects</a></li>
+                <li class="menu-list-items"><a href="#resume">Resume</a></li>
+                <li class="menu-list-items"><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="hero" id="home" style="background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 20px;">
+        <div class="intro">
+            <h2 style="font-size: 3rem; margin-bottom: 1rem; color: white;">Hello, I'm Riteshkumaran.R</h2>
+            <h3 style="font-size: 1.5rem; margin-bottom: 2rem; color: rgba(255,255,255,0.9);">Full Stack Developer | UI/UX Enthusiast</h3>
+            <div class="intro-buttons" style="display: flex; gap: 1rem; justify-content: center;">
+                <a href="#contact" class="btn" style="background: white; color: #2c3e50; padding: 12px 24px; border-radius: 4px; text-decoration: none; font-weight: bold; transition: all 0.3s;">Hire Me</a>
+                <a href="#projects" class="btn" style="background: transparent; color: white; padding: 12px 24px; border: 2px solid white; border-radius: 4px; text-decoration: none; font-weight: bold; transition: all 0.3s;">View Work</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" style="padding: 5rem 2rem; background: #ffffff;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;">About Me</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+                <div>
+                    <h3 style="font-size: 1.5rem; color: #2c3e50;">Who I Am</h3>
+                    <p style="line-height: 1.8; color: #555;">I'm a passionate full-stack developer with 5+ years of experience creating modern web applications. I specialize in JavaScript frameworks and responsive design principles.</p>
+                    <div style="margin-top: 2rem;">
+                        <h4 style="margin-bottom: 0.5rem;">Skills:</h4>
+                        <div style="background: #f1f1f1; border-radius: 4px; margin-bottom: 1rem;">
+                            <div style="background: #3498db; border-radius: 4px; width: 90%; padding: 8px; text-align: right; color: white;">JavaScript 90%</div>
+                        </div>
+                        <div style="background: #f1f1f1; border-radius: 4px; margin-bottom: 1rem;">
+                            <div style="background: #3498db; border-radius: 4px; width: 85%; padding: 8px; text-align: right; color: white;">React 85%</div>
+                        </div>
+                        <div style="background: #f1f1f1; border-radius: 4px; margin-bottom: 1rem;">
+                            <div style="background: #3498db; border-radius: 4px; width: 80%; padding: 8px; text-align: right; color: white;">Node.js 80%</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="font-size: 1.5rem; color: #2c3e50;">My Approach</h3>
+                    <p style="line-height: 1.8; color: #555;">I believe in clean, maintainable code and pixel-perfect design. My development process focuses on:</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center;">
+                            <span style="display: inline-block; width: 8px; height: 8px; background: #3498db; margin-right: 1rem;"></span>
+                            Responsive, mobile-first development
+                        </li>
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center;">
+                            <span style="display: inline-block; width: 8px; height: 8px; background: #3498db; margin-right: 1rem;"></span>
+                            Performance optimization
+                        </li>
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center;">
+                            <span style="display: inline-block; width: 8px; height: 8px; background: #3498db; margin-right: 1rem;"></span>
+                            Accessibility best practices
+                        </li>
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center;">
+                            <span style="display: inline-block; width: 8px; height: 8px; background: #3498db; margin-right: 1rem;"></span>
+                            Clean, semantic code
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" style="padding: 5rem 2rem; background: #f8f9fa;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;">Featured Work</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s;">
+                    <div style="background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+                        Project 1
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">E-Commerce Platform</h3>
+                        <p style="color: #666; margin-bottom: 1.5rem;">A full-stack e-commerce solution with React frontend and Node.js backend.</p>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <span style="background: #e0f2fe; color: #0369a1; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">React</span>
+                            <span style="background: #e0f2fe; color: #0369a1; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">Node.js</span>
+                            <span style="background: #e0f2fe; color: #0369a1; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s;">
+                    <div style="background: linear-gradient(135deg, #10b981 0%, #047857 100%); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+                        Project 2
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Task Management App</h3>
+                        <p style="color: #666; margin-bottom: 1.5rem;">An intuitive todo application with drag-and-drop functionality.</p>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <span style="background: #dcfce7; color: #166534; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">Vue.js</span>
+                            <span style="background: #dcfce7; color: #166534; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">Firebase</span>
+                            <span style="background: #dcfce7; color: #166534; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">Tailwind</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s;">
+                    <div style="background: linear-gradient(135deg, #f97316 0%, #c2410c 100%); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+                        Project 3
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Portfolio Website</h3>
+                        <p style="color: #666; margin-bottom: 1.5rem;">A responsive portfolio website with smooth animations.</p>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <span style="background: #ffedd5; color: #9a3412; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">HTML</span>
+                            <span style="background: #ffedd5; color: #9a3412; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">CSS</span>
+                            <span style="background: #ffedd5; color: #9a3412; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">GSAP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="resume">
+        <h2>My Skills</h2>
+        <div class="my-row">
+            <div class="my-col">
+                <h3>HTML</h3>
+            </div>
+            <div class="my-col">
+                <h3>CSS</h3>
+            </div>
+            <div class="my-col">
+                <h3>JavaScript</h3>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" style="padding: 5rem 2rem; background: #2c3e50; color: white;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;">Let's Connect</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+                <div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Get In Touch</h3>
+                    <p style="margin-bottom: 2rem; line-height: 1.6;">Have a project in mind or want to discuss potential opportunities? Feel free to reach out!</p>
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="margin-bottom: 0.5rem; display: flex; align-items: center;">
+                            <span style="margin-right: 0.75rem;">📧</span> Email
+                        </h4>
+                        <a href="mailto:hello@example.com" style="color: #3498db; text-decoration: none;">hello@example.com</a>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 0.5rem; display: flex; align-items: center;">
+                            <span style="margin-right: 0.75rem;">📍</span> Location
+                        </h4>
+                        <p>San Francisco, CA</p>
+                    </div>
+                </div>
+                <form style="background: white; padding: 2rem; border-radius: 8px; color: #333;">
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Your Name</label>
+                        <input type="text" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px;" required>
+                    </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Your Email</label>
+                        <input type="email" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px;" required>
+                    </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Message</label>
+                        <textarea style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; min-height: 150px;" required></textarea>
+                    </div>
+                    <button type="submit" style="background: #3498db; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 4px; font-weight: 500; cursor: pointer; width: 100%; transition: background 0.3s;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: #1a252f; color: white; padding: 2rem; text-align: center;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1.5rem;">
+                <a href="#" style="color: white; font-size: 1.5rem;">📱</a>
+                <a href="#" style="color: white; font-size: 1.5rem;">💻</a>
+                <a href="#" style="color: white; font-size: 1.5rem;">📧</a>
+                <a href="#" style="color: white; font-size: 1.5rem;">📌</a>
+            </div>
+            <p style="margin-bottom: 1rem;">&copy; 2025 John Doe. All rights reserved.</p>
+            <p style="font-size: 0.8rem; color: rgba(255,255,255,0.6);">Built with ❤️ and pure HTML/CSS</p>
+        </div>
+    </footer>
+
+</body>
+</html>
